@@ -31,26 +31,19 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
   arrOfStrings.forEach((str) => {
     result = result + checkNumbers(str);
   });
-  return result;
+  return result; //56049
 };
 
 const checkNumbers = (str: string) => {
-  const numRegex = /^\d+$/;
-  let firstNumber;
-  let lastNumber;
-  for (const letter of str) {
-    if (numRegex.test(letter)) {
-      firstNumber = letter;
-      break;
-    }
+  const numRegex = /\d/g;
+  const numbers = str.match(numRegex);
+  if (numbers) {
+    const firstNumber = numbers[0];
+    const lastNumber = numbers[numbers.length - 1];
+    return Number([firstNumber, lastNumber].join(""));
+  } else {
+    return 0;
   }
-  for (const letter of str) {
-    if (numRegex.test(letter)) {
-      lastNumber = letter;
-    }
-  }
-
-  return Number([firstNumber, lastNumber].join(""));
 };
 
 export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
@@ -94,7 +87,6 @@ const checkNumbersAndLetters = (str: string) => {
     "nine",
     "1",
     "2",
-    "1",
     "3",
     "4",
     "5",
@@ -127,21 +119,27 @@ const checkNumbersAndLetters = (str: string) => {
 
   const indices: [number, string][] = [];
   arrOfStrings.forEach((element) => {
-    const index = str.indexOf(element);
-    if (index != -1) {
+    let index = str.indexOf(element);
+    while (index != -1) {
       indices.push([index, element]);
+      index = str.indexOf(element, index + element.length);
     }
   });
 
   indices.sort((a, b) => a[0] - b[0]);
-  console.log(
-    [numberMap[indices[0][1]], numberMap[indices[indices.length - 1][1]]].join(
-      ""
-    )
-  );
-  return Number(
-    [numberMap[indices[0][1]], numberMap[indices[indices.length - 1][1]]].join(
-      ""
-    )
-  );
+
+  if (indices.length > 1) {
+    return Number(
+      [
+        numberMap[indices[0][1]],
+        numberMap[indices[indices.length - 1][1]],
+      ].join("")
+    );
+  } else if (indices.length === 1) {
+    return Number(
+      [numberMap[indices[0][1]], numberMap[indices[0][1]]].join("")
+    );
+  } else {
+    return 0; //  54530
+  }
 };
