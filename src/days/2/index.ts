@@ -40,7 +40,7 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
   return sumIdsFromPossibleGames(games, { red: 12, green: 13, blue: 14 }); //2679
 };
 
-const parseGame = (gameStrings: string[]) => {
+const parseGame = (gameStrings: string[]): Game[] => {
   const games: Game[] = [];
 
   for (const gameString of gameStrings) {
@@ -64,7 +64,7 @@ const parseGame = (gameStrings: string[]) => {
 
 const isGamePossible = (game: Game, bag: { red: number; green: number; blue: number }): boolean => {
   for (const round of game.rounds) {
-    const counts: any = { red: 0, green: 0, blue: 0 };
+    const counts: { [key: string]: number } = { red: 0, green: 0, blue: 0 };
 
     for (const { color, count } of round) {
       counts[color] += count;
@@ -78,7 +78,7 @@ const isGamePossible = (game: Game, bag: { red: number; green: number; blue: num
   return true;
 };
 
-const sumIdsFromPossibleGames = (games: any, bag: { red: number; green: number; blue: number }): number => {
+const sumIdsFromPossibleGames = (games: Game[], bag: { red: number; green: number; blue: number }): number => {
   let sum = 0;
 
   for (const game of games) {
@@ -90,7 +90,7 @@ const sumIdsFromPossibleGames = (games: any, bag: { red: number; green: number; 
   return sum;
 };
 
-export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
+export const solutionFn2 = ({ arg1 }: { arg1: string }): number => {
   console.log(
     "\x1b[44m",
     "\x1b[33m",
@@ -125,8 +125,8 @@ export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
   return result; //77607
 };
 
-const checkTheMaxNumOfCubes = (rounds: { color: string; count: number }[][]) => {
-  const biggestNumberOfEachCube: any = {};
+const checkTheMaxNumOfCubes = (rounds: { color: string; count: number }[][]): number => {
+  const biggestNumberOfEachCube: { [key: string]: number } = {};
 
   rounds.forEach((round) => {
     round.forEach(({ color, count }) => {
@@ -138,5 +138,5 @@ const checkTheMaxNumOfCubes = (rounds: { color: string; count: number }[][]) => 
       }
     });
   });
-  return (Object.values(biggestNumberOfEachCube) as number[]).reduce((a, b) => a * b);
+  return Object.values(biggestNumberOfEachCube).reduce((a, b) => a * b);
 };
