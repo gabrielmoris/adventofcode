@@ -45,7 +45,7 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
     const carNumbers = card.split(/[:|]/);
     const winningNumbers = carNumbers[1].trim().split(" ");
     const playerNumbers = carNumbers[2].trim().split(" ");
-    // Here compare winning with player and do the calculation (first time 1 and then double)
+
     playerNumbers.forEach((num) => {
       if (winningNumbers.indexOf(num) !== -1) {
         console.log(winningNumbers, num);
