@@ -57,12 +57,8 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
   }
   console.log(winsForCard);
   winsForCard.forEach((numOfWins) => {
-    let points = 1;
     if (numOfWins > 0 && numOfWins !== 1) {
-      for (let i = numOfWins; i > 1; i--) {
-        points *= 2;
-      }
-      res += points;
+      res += Math.pow(2, numOfWins - 1);
     } else if (numOfWins === 1) {
       res++;
     }
@@ -72,3 +68,4 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
 };
 
 //103065 is too high
+//103052 is too high
