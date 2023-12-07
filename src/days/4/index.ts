@@ -37,13 +37,38 @@ export const solutionFn1 = ({ arg1 }: { arg1: string }) => {
   Take a seat in the large pile of colorful cards. How many points are they worth in total?`,
     "\x1b[0m"
   );
-
+  let res = 0;
   const arrOfCards = arg1.split("\n");
-
+  const winsForCard = [];
   for (let card of arrOfCards) {
+    let numberOfWins = 0;
     const carNumbers = card.split(/[:|]/);
     const winningNumbers = carNumbers[1].trim().split(" ");
     const playerNumbers = carNumbers[2].trim().split(" ");
     // Here compare winning with player and do the calculation (first time 1 and then double)
+    playerNumbers.forEach((num) => {
+      if (winningNumbers.indexOf(num) !== -1) {
+        console.log(winningNumbers, num);
+        numberOfWins++;
+      }
+    });
+    winsForCard.push(numberOfWins);
+    numberOfWins = 0;
   }
+  console.log(winsForCard);
+  winsForCard.forEach((numOfWins) => {
+    let points = 1;
+    if (numOfWins > 0 && numOfWins !== 1) {
+      for (let i = numOfWins; i > 1; i--) {
+        points *= 2;
+      }
+      res += points;
+    } else if (numOfWins === 1) {
+      res++;
+    }
+  });
+
+  return res;
 };
+
+//103065 is too high
