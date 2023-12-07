@@ -108,4 +108,33 @@ export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
     Process all of the original and copied scratchcards until no more scratchcards are won. Including the original set of scratchcards, how many total scratchcards do you end up with?`,
     "\x1b[0m"
   );
+
+  const finalArrOfCards = [];
+
+  const arrOfCards = arg1.split("\n");
+  for (let [index, card] of arrOfCards.entries()) {
+    const carNumbers = card.split(/[:|]/);
+    const winningNumbers = carNumbers[1]
+      .trim()
+      .split(" ")
+      .filter((num) => {
+        return num != "";
+      });
+    const playerNumbers = carNumbers[2]
+      .trim()
+      .split(" ")
+      .filter((num) => {
+        return num != "";
+      });
+    let numOfWins = 0;
+    winningNumbers.forEach((num) => {
+      if (playerNumbers.indexOf(num) !== -1) {
+        numOfWins++;
+      }
+    });
+    const cardInstances = arrOfCards.slice(index + 1, index + numOfWins + 1);
+    finalArrOfCards.push(...cardInstances, card);
+  }
+
+  return solutionFn1({ arg1: finalArrOfCards.join("\n") });
 };
