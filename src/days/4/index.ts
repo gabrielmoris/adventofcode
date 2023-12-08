@@ -133,8 +133,8 @@ export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
       }
     });
     const cardInstances = arrOfCards.slice(index + 1, index + numOfWins + 1);
-    finalArrOfCards.push(...cardInstances, card);
+    finalArrOfCards.push(card, ...cardInstances);
   }
-
+  console.log(finalArrOfCards.join("\n"));
   return solutionFn1({ arg1: finalArrOfCards.join("\n") });
 };
