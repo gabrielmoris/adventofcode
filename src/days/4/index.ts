@@ -136,5 +136,5 @@ export const solutionFn2 = ({ arg1 }: { arg1: string }) => {
     finalArrOfCards.push(card, ...cardInstances);
   }
   console.log(finalArrOfCards.join("\n"));
-  return solutionFn1({ arg1: finalArrOfCards.join("\n") });
+  return finalArrOfCards.length;
 };
