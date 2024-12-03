@@ -1,5 +1,4 @@
 export const solutionFn = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 3 A`, "\x1b[0m");
   //each rucksack is a string, each half string is a compartment
   //check which item is repeated on both and sum all the priorities number
 
@@ -29,7 +28,6 @@ function priorities(letter: string): number {
 }
 
 export const solutionFn2 = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 3 B`, "\x1b[0m");
   const inputArray = arg.split("\n");
   let result = 0;
   let arrOfLetters: string[] = [];

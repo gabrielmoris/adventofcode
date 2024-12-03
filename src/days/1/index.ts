@@ -20,13 +20,9 @@ const mergePackageAndORder = (arg: string) => {
 };
 
 export const solutionFn = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 1 A`, "\x1b[0m");
-
   return mergePackageAndORder(arg)[0];
 };
 
 export const solutionFn2 = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 1 B`, "\x1b[0m");
-
   return mergePackageAndORder(arg)[0] + mergePackageAndORder(arg)[1] + mergePackageAndORder(arg)[2];
 };

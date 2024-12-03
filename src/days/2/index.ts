@@ -1,5 +1,4 @@
 export const solutionFn = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 2 A`, "\x1b[0m");
   const inputArray = arg.split("\n");
   let score = 0;
 
@@ -22,7 +21,6 @@ export const solutionFn = ({ arg }: { arg: string }) => {
 };
 
 export const solutionFn2 = ({ arg }: { arg: string }) => {
-  console.log("\x1b[44m", "\x1b[33m", `Day 2 B`, "\x1b[0m");
   const inputArray = arg.split("\n");
   let score = 0;
 
