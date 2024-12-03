@@ -16,7 +16,7 @@ async function execute() {
     .map((item) => item.name);
 
   const getChallenge = async (): Promise<string | null> => {
-    const input = await question("\n\n\x1b[33m\x1b[4mWhich challenge are you doing? (Type 'CTRL + C' to quit) \x1b[0m \n\n");
+    const input = await question("\x1b[33m\x1b[4mWhich challenge are you doing? (Type 'CTRL + C' to quit) \x1b[0m \n\n");
 
     if (typeof input === "string" && dirs.includes(input)) {
       return input;
