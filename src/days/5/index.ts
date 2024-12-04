@@ -77,6 +77,5 @@ export const solutionFn2 = ({ arg }: { arg: string }) => {
   crates.forEach((crate) => {
     arResult.push(crate[crate.length - 1]);
   });
-  console.log(arResult.toString().replaceAll(",", ""));
   return arResult.toString().replaceAll(",", "");
 };
