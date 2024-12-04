@@ -15,74 +15,62 @@ async function execute() {
     .filter((item) => item.isDirectory())
     .map((item) => item.name);
 
-  const getChallenge = async () => {
-    return await question("Which challenge are you doing?").then(
-      (input: string | void) => {
-        if (typeof input === "string" && dirs.includes(input)) {
-          rl.close();
-          return input;
-        } else {
-          console.log("This folder still wasn't created.");
-          getChallenge();
-        }
-      }
+  const getChallenge = async (): Promise<string | null> => {
+    const input = await question(
+      "\x1b[33m\x1b[4mWhich challenge are you doing? (Type 'CTRL + C' to quit) \x1b[0m \n\n"
     );
+
+    if (typeof input === "string" && dirs.includes(input)) {
+      return input;
+    } else {
+      console.log("\x1b[31m This folder still wasn't created.");
+
+      return getChallenge();
+    }
   };
 
-  const challenge = await getChallenge();
+  while (true) {
+    const challenge = await getChallenge();
+    if (!challenge) {
+      rl.close();
+      break;
+    }
 
-  if (!challenge) return;
+    let mainInput: any;
+    let secondaryInput: any;
+    console.clear();
 
-  let mainInput: any;
+    const ChallengeFn = await import("./days/" + challenge + "/index.ts");
+    try {
+      mainInput = await import("./days/" + challenge + "/input.ts");
+    } catch {
+      console.log("\x1b[31m", "no input.ts provided for Arg 1", "\x1b[0m");
+    }
 
-  const mod = await import("./days/" + challenge + "/index.ts");
-  try {
-    mainInput = await import("./days/" + challenge + "/input.ts");
-  } catch {
-    console.log("no input.ts provided for Arg 1");
-  }
+    try {
+      secondaryInput = await import("./days/" + challenge + "/input2.ts");
+    } catch {
+      console.log("\x1b[2m", "no input2.ts provided for Arg 2", "\x1b[0m");
+    }
 
-  let secondaryInput: any;
-
-  try {
-    secondaryInput = await import("./days/" + challenge + "/input2.ts");
-  } catch {
-    console.log("no input2.ts provided for Arg 2");
-  }
-
-  if (secondaryInput) {
-    Object.keys(mod).forEach((key, index) => {
-      if (typeof mod[key] === "function") {
-        const fn = mod[key];
+    Object.keys(ChallengeFn).forEach((key, index) => {
+      if (typeof ChallengeFn[key] === "function") {
+        const fn = ChallengeFn[key];
         const start = performance.now();
-        const solution = fn(mainInput, secondaryInput);
+        const solution = secondaryInput
+          ? fn(mainInput, secondaryInput)
+          : fn(mainInput);
         const end = performance.now();
         console.log(
-          `${index + 1}. Challenge ${challenge} - ${fn.name}: `,
-          solution
+          `\x1b[44m\x1b[33mDay ${challenge}. Challenge ${
+            index + 1
+          }\x1b[0m\x1b[33m`,
+          solution + "\x1b[0m"
         );
         console.log(
-          `${index + 1}. Execution took ${(end - start).toPrecision(
+          `\x1b[2mExecution took ${(end - start).toPrecision(
             4
-          )} milliseconds.`
-        );
-      }
-    });
-  } else {
-    Object.keys(mod).forEach((key, index) => {
-      if (typeof mod[key] === "function") {
-        const fn = mod[key];
-        const start = performance.now();
-        const solution = fn(mainInput);
-        const end = performance.now();
-        console.log(
-          `${index + 1}. Challenge ${challenge} - ${fn.name}: `,
-          solution
-        );
-        console.log(
-          `${index + 1}. Execution took ${(end - start).toPrecision(
-            4
-          )} milliseconds.`
+          )} milliseconds.\x1b[0m`
         );
       }
     });
