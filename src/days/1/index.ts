@@ -1,5 +1,3 @@
-import path from "path";
-
 export const solutionFn = ({ arg }: { arg: string }) => {
   const arrOfStrings = arg.split("\n");
   const distances: number[] = [];
