@@ -7,7 +7,7 @@ export const solutionFn = ({ arg }: { arg: string }) => {
       // Check horizontal ( from j to j-3, which is the length of the string)
       if (j + 3 < arrOfStrings[i].length) {
         const horizontal = arrOfStrings[i].slice(j, j + 4).join("");
-        if (checkXmas(horizontal)) instancesFound++;
+        if (checkXmas(horizontal, "XMAS")) instancesFound++;
       }
 
       // Check Vertical
@@ -18,7 +18,7 @@ export const solutionFn = ({ arg }: { arg: string }) => {
           arrOfStrings[i + 2][j],
           arrOfStrings[i + 3][j],
         ].join("");
-        if (checkXmas(vertical)) instancesFound++;
+        if (checkXmas(vertical, "XMAS")) instancesFound++;
       }
 
       // Check Diagonals
@@ -37,8 +37,8 @@ export const solutionFn = ({ arg }: { arg: string }) => {
           arrOfStrings[i][j + 3],
         ].join("");
 
-        if (checkXmas(diagonalLeft)) instancesFound++;
-        if (checkXmas(diagonalRight)) instancesFound++;
+        if (checkXmas(diagonalLeft, "XMAS")) instancesFound++;
+        if (checkXmas(diagonalRight, "XMAS")) instancesFound++;
       }
     }
   }
@@ -46,8 +46,10 @@ export const solutionFn = ({ arg }: { arg: string }) => {
   return instancesFound;
 };
 
-const checkXmas = (word: string): boolean => {
-  return word === "XMAS" || word === "SAMX";
+const checkXmas = (word: string, wordToCheck: string): boolean => {
+  return (
+    word === wordToCheck || word === wordToCheck.split("").reverse().join("")
+  );
 };
 
 export const solutionFn2 = ({ arg }: { arg: string }) => {
@@ -56,8 +58,23 @@ export const solutionFn2 = ({ arg }: { arg: string }) => {
 
   for (let i = 0; i < arrOfStrings.length; i++) {
     for (let j = 0; j < arrOfStrings[i].length; j++) {
-        
+      if (i + 2 < arrOfStrings.length && j + 2 < arrOfStrings[i].length) {
+        const diagonalLeft = [
+          arrOfStrings[i][j],
+          arrOfStrings[i + 1][j + 1],
+          arrOfStrings[i + 2][j + 2],
+        ].join("");
 
+        const diagonalRight = [
+          arrOfStrings[i + 2][j],
+          arrOfStrings[i + 1][j + 1],
+          arrOfStrings[i][j + 2],
+        ].join("");
+
+        if (checkXmas(diagonalLeft, "MAS") && checkXmas(diagonalRight, "MAS"))
+          instancesFound++;
+      }
     }
   }
+  return instancesFound;
 };
