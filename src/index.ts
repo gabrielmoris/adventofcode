@@ -59,15 +59,17 @@ async function selectYear(): Promise<string> {
       console.log("\x1b[33m\x1b[4mAvailable years:\x1b[0m");
       years.forEach((year, i) => console.log(`$  ${year}`));
 
-      const input = await question("Enter year: ");
-      if (typeof input === "string" && years.includes(input)) {
-        resolve(input);
-        return;
+      while (true) {
+        // Loop instead of recursion
+        const input = await question("Enter year: ");
+        if (typeof input === "string" && years.includes(input)) {
+          resolve(input);
+          return;
+        }
+        console.log("\x1b[31m Invalid input. Try again.\x1b[0m");
       }
-
-      console.log("\x1b[31m Invalid input. Try again.\x1b[0m");
-      return selectYear();
     }
+
     render();
   });
 }
