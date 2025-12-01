@@ -1,6 +1,8 @@
 ## 🚀 Getting Started
 
-To run the Advent of Code challenges, simply execute `npm start:dev` and select the desired day you wish to execute. Each day corresponds to a separate folder labeled by its number.
+1. run `yarn` or `bun install` or `npm i`
+
+2. To run the Advent of Code challenges, simply execute `npm start:dev` and select the desired day you wish to execute. Each day corresponds to a separate folder labeled by its number.
 
 ### 🎄 You get the challnges here
 
