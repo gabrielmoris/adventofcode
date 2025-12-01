@@ -65,7 +65,7 @@ async function selectYear(): Promise<string> {
         return;
       }
 
-      console.log("Invalid input. Try again.", "Type:", typeof input, "included:", years.includes(input as unknown as string));
+      console.log("\x1b[31m Invalid input. Try again.\x1b[0m");
       return selectYear();
     }
     render();
@@ -78,10 +78,6 @@ async function execute() {
     .readdirSync(`./src/challenges/${year}`, { withFileTypes: true })
     .filter((item) => item.isDirectory())
     .map((item) => item.name);
-  const dirs = fs
-    .readdirSync("./src/days", { withFileTypes: true })
-    .filter((item) => item.isDirectory())
-    .map((item) => item.name);
 
   const getChallenge = async (): Promise<string | null> => {
     const input = await question(
@@ -90,7 +86,7 @@ async function execute() {
       })? (Type 'CTRL + C' to quit) \x1b[0m \n\n`
     );
 
-    if (typeof input === "string" && dirs.includes(input)) {
+    if (typeof input === "string" && challengeList.includes(input)) {
       return input;
     } else {
       console.log("\x1b[31m This folder still wasn't created.");
